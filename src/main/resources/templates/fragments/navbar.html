@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" xmlns:th="http://www.thymeleaf.org">
+  <a class="navbar-brand" href="/" th:utext="${@environment.getProperty('spring.application.name')}">...</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Главная</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="get" action="/search">
+      <input class="form-control mr-sm-2" name="query" type="search" placeholder="Что ищем?" aria-label="Search" th:value="${searchQuery ?: ''}">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Поиск</button>
+    </form>
+  </div>
+</nav>

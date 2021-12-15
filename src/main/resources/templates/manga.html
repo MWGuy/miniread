@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:utext="${manga.getName().get('ru')}">...</title>
+    <th:block th:insert="fragments/head"/>
+</head>
+<body class="bg-light">
+<th:block th:insert="fragments/navbar"/>
+<div class="container-lg mt-2">
+    <div class="media shadow-sm p-3 mb-2 bg-white rounded">
+        <img th:src="${manga.getPoster()}" width="150px" class="align-self-start mr-3">
+        <div class="media-body">
+            <h5 class="mt-0" th:utext="${manga.getCanonicalName()}">...</h5>
+            <th:block th:each="nameEntry, state : ${manga.getName().entrySet()}">
+                <h6 class="mt-0" th:if="${!state.first}" th:utext="${nameEntry.getValue()}">...</h6>
+            </th:block>
+            <p th:utext="${manga.getDescription() ?: 'Нет описания'}">...</p>
+        </div>
+    </div>
+    <div class="shadow-sm mb-2 bg-white rounded">
+        <ul class="p-3 nav nav-pills" id="branches-tab" role="tablist">
+            <th:block th:each="branch, state : ${manga.getBranches()}">
+                <li class="nav-item" role="presentation">
+                    <a th:class="'nav-link ' + ${state.first ? 'active' : ''}"
+                       th:id="'branch-tab-' + ${branch.getId().toString()}"
+                       data-toggle="pill"
+                       th:href="'#branch-content-' + ${branch.getId().toString()}"
+                       role="tab"
+                       th:aria-controls="${branch.getId().toString()}"
+                       aria-selected="true"
+                       th:utext="${branch.getTeamNames()}"
+                    >...</a>
+                </li>
+            </th:block>
+        </ul>
+        <div class="tab-content" id="branches-content">
+            <th:block th:each="branch, state : ${manga.getBranches()}">
+                <div th:class="'tab-pane fade ' + ${state.first ? 'show active' : ''}"
+                     th:id="'branch-content-' + ${branch.getId().toString()}"
+                     role="tabpanel"
+                     th:aria-labelledby="'branch-tab-' + ${branch.getId().toString()}">
+                    <ul class="list-group list-group-flush border-top">
+                        <th:block th:each="chapter : ${branch.getChapters()}">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <a th:href="'/chapter/' + ${chapter.getId().toString()}" th:utext="${chapter.getFormattedName()}">...</a>
+                                <div th:utext="${@dateService.formatDate(chapter.getCreatedAt())}">...</div>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>
