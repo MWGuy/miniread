@@ -14,3 +14,9 @@ Fast and simple manga reader. Goal of this project - make simple and self-manage
 * Manga creating/editing/moderating
 * Chapter uploading
 * API (maybe?)
+
+## Screenshots
+
+![main page](screenshots/main.png)
+![main page](screenshots/manga.png)
+![main page](screenshots/chapter.png)
