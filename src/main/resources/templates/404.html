@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:utext="${@environment.getProperty('spring.application.name')}">...</title>
+    <th:block th:insert="fragments/head"/>
+</head>
+<body class="d-flex flex-column bg-light vh-100">
+<th:block th:insert="fragments/navbar"/>
+<div class="d-flex flex-grow-1 justify-content-center align-items-center" id="main">
+    <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
+    <div class="inline-block align-middle">
+        <h2 class="font-weight-normal lead" id="desc">Не найдено.</h2>
+    </div>
+</div>
+</body>
+</html>

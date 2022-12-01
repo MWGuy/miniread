@@ -9,16 +9,16 @@
 <th:block th:insert="fragments/navbar"/>
 <div class="container-lg mt-2">
     <div class="media shadow-sm p-3 mb-2 bg-white rounded">
-        <img th:src="${manga.getPoster()}" width="150px" class="align-self-start mr-3">
+        <img th:src="${manga.getPoster()}" width="150px" class="align-self-start mr-3 rounded">
         <div class="media-body">
-            <h5 class="mt-0" th:utext="${manga.getCanonicalName()}">...</h5>
+            <h4 class="mt-0 fw-bold" th:utext="${manga.getCanonicalName()}">...</h4>
             <th:block th:each="nameEntry, state : ${manga.getName().entrySet()}">
-                <h6 class="mt-0" th:if="${!state.first}" th:utext="${nameEntry.getValue()}">...</h6>
+                <h6 class="mt-0 font-monospace" th:if="${!state.first}" th:utext="${nameEntry.getValue()}">...</h6>
             </th:block>
             <p th:utext="${manga.getDescription() ?: 'Нет описания'}">...</p>
         </div>
     </div>
-    <div class="shadow-sm mb-2 bg-white rounded">
+    <div th:if="${manga.getBranches().size() > 0}" class="shadow-sm mb-2 bg-white rounded">
         <ul class="p-3 nav nav-pills" id="branches-tab" role="tablist">
             <th:block th:each="branch, state : ${manga.getBranches()}">
                 <li class="nav-item" role="presentation">
@@ -40,7 +40,7 @@
                      th:id="'branch-content-' + ${branch.getId().toString()}"
                      role="tabpanel"
                      th:aria-labelledby="'branch-tab-' + ${branch.getId().toString()}">
-                    <ul class="list-group list-group-flush border-top">
+                    <ul th:if="${branch.getChapters().size() > 0}" class="list-group list-group-flush border-top">
                         <th:block th:each="chapter : ${branch.getChapters()}">
                             <li class="list-group-item d-flex justify-content-between">
                                 <a th:href="'/chapter/' + ${chapter.getId().toString()}" th:utext="${chapter.getFormattedName()}">...</a>
@@ -48,9 +48,15 @@
                             </li>
                         </th:block>
                     </ul>
+                    <div th:if="${branch.getChapters().size() == 0}" class="text-center p-1 pb-4">
+                        Нет глав...
+                    </div>
                 </div>
             </th:block>
         </div>
+    </div>
+    <div th:if="${manga.getBranches().size() == 0}" class="p-1 shadow-sm bg-white rounded text-center">
+        Веток нет...
     </div>
 </div>
 </body>

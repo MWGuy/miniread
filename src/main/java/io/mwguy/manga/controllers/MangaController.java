@@ -19,6 +19,10 @@ public class MangaController {
     @GetMapping("/{slug}")
     public String mangaPage(@PathVariable String slug, Model model) {
         var manga = mangaRepository.findBySlugIgnoreCase(slug);
+        if (manga.isEmpty()) {
+            return "404";
+        }
+
         model.addAttribute("manga", manga.get());
         return "manga";
     }

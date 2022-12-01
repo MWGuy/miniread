@@ -7,7 +7,7 @@
 </head>
 <body class="bg-light">
 <th:block th:insert="fragments/navbar"/>
-<div class="container-lg mt-2">
+<div th:if="${latestManga.size() > 0}" class="container-lg mt-2">
     <div class="shadow-sm mb-2 bg-white rounded flex-box">
         <h4 class="p-3 mb-0">Новая манга</h4>
         <ul class="list-group list-group-flush border-top">
@@ -18,7 +18,7 @@
         </ul>
     </div>
 </div>
-<div class="container-lg mt-2">
+<div th:if="${latestChapters.size() > 0}" class="container-lg mt-2">
     <div class="shadow-sm mb-2 bg-white rounded flex-box">
         <h4 class="p-3 mb-0">Новые главы</h4>
         <ul class="list-group list-group-flush border-top">
