@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -52,6 +53,19 @@ public class Manga implements Serializable {
     private List<Branch> branches = new ArrayList<>();
 
     public String getCanonicalName() {
-        return getName().entrySet().iterator().next().getValue();
+        return getName()
+                .entrySet()
+                .iterator()
+                .next()
+                .getValue();
+    }
+
+    public String getAlternativeNames() {
+        return getName()
+                .entrySet()
+                .stream()
+                .skip(1)
+                .map(Map.Entry::getValue)
+                .collect(Collectors.joining(" / "));
     }
 }
